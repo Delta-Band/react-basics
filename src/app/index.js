@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { HomePage } from '../pages';
 import AppBar from './AppBar';
 import { ThemeProvider } from '@emotion/react';
 import getTheme from './theme';
@@ -19,7 +18,6 @@ function App() {
         })}
       >
         <AppBar />
-        <HomePage />
       </div>
     </ThemeProvider>
   );
