@@ -32,7 +32,7 @@ export default function AppBar() {
                 height: 42
               }}
             />
-            <Typography variant='h6'>My React App</Typography>
+            <Typography variant='h6'>My React SPA</Typography>
           </div>
         </Toolbar>
       </MuiAppBar>
