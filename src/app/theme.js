@@ -1,7 +1,17 @@
 import { createTheme } from '@mui/material/styles';
 
 const getTheme = mode => {
-  const themObj = {};
+  const themObj = {
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            height: 48
+          }
+        }
+      }
+    }
+  };
   if (mode === 'dark') {
     themObj.pallet = {
       bg: '#474851',
@@ -10,8 +20,12 @@ const getTheme = mode => {
   } else {
     themObj.pallet = {
       fg: '#474851',
-      bg: '#C7C7C7'
+      bg: '#C7C7C7',
+      accent: '#437295'
     };
+    Object.assign(themObj.components.MuiInputBase.styleOverrides.root, {
+      backgroundColor: '#FFF'
+    });
   }
 
   return createTheme(themObj);

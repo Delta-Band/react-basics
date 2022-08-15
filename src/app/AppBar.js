@@ -1,16 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import {
-  AppBar as MuiAppBar,
-  Toolbar,
-  Typography,
-  Avatar,
-  IconButton,
-  Button
-} from '@mui/material';
-import { Menu as MenuIcon } from '@styled-icons/boxicons-regular/Menu';
+import { AppBar as MuiAppBar, Toolbar, IconButton } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import getTheme from './theme';
 import logo from './react.svg';
+import ProfleMenu from './ProfleMenu';
 
 export default function AppBar() {
   return (
@@ -31,9 +24,6 @@ export default function AppBar() {
               gap: 8
             }}
           >
-            {/* <IconButton>
-              <MenuIcon size={32} />
-            </IconButton> */}
             <IconButton>
               <img
                 alt='logo'
@@ -42,12 +32,9 @@ export default function AppBar() {
                   height: 42
                 }}
               />
-              {/* <Typography variant='h6'>My React SPA</Typography> */}
             </IconButton>
           </div>
-          <IconButton>
-            <Avatar alt='Remy Sharp' src={''} />
-          </IconButton>
+          <ProfleMenu />
         </Toolbar>
       </MuiAppBar>
     </ThemeProvider>

@@ -1,9 +1,19 @@
 /** @jsxImportSource @emotion/react */
+import { useEffect } from 'react';
 import AppBar from './AppBar';
 import { ThemeProvider } from '@emotion/react';
 import getTheme from './theme';
+import api from '../api';
 
 function App() {
+  useEffect(() => {
+    async function getUser() {
+      const userData = await api.user.get();
+      console.log('userData', userData);
+    }
+    getUser();
+  }, []);
+
   return (
     <ThemeProvider theme={getTheme('dark')}>
       <div
