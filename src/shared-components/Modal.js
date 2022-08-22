@@ -2,8 +2,6 @@
 import { ThemeProvider } from '@emotion/react';
 import getTheme from '../app/theme';
 import { Modal as MuiModal, Typography, Fade } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { modalSlice } from '../app/slices';
 
 export default function Modal({
   children,
@@ -12,16 +10,11 @@ export default function Modal({
   onClose,
   title = ''
 }) {
-  const dispatch = useDispatch();
-
   return (
     <ThemeProvider theme={getTheme('light')}>
       <MuiModal
         open={open}
-        onClose={() => {
-          dispatch(modalSlice.actions.clear());
-          onClose();
-        }}
+        onClose={onClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >

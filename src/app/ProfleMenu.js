@@ -14,16 +14,13 @@ import { Modal } from '../shared-components';
 import styled from '@emotion/styled';
 import { UserSolidCircle as UserIcon } from '@styled-icons/zondicons/UserSolidCircle';
 import { useSelector, useDispatch } from 'react-redux';
-import { modalSlice, userSlice } from './slices';
+import { userSlice } from './slices';
 
 const FieldTitle = styled.div`
   margin-bottom: 8px;
 `;
 
-function Name() {
-  const name = useSelector(state => state.modal.name || '');
-  const dispatch = useDispatch();
-
+function Name({ name, setName }) {
   return (
     <div>
       <FieldTitle>
@@ -32,9 +29,7 @@ function Name() {
       <TextField
         fullWidth
         value={name}
-        onChange={e =>
-          dispatch(modalSlice.actions.setData({ name: e.target.value }))
-        }
+        onChange={e => setName(e.target.value)}
       />
     </div>
   );
@@ -69,8 +64,7 @@ function ProfilePic() {
   );
 }
 
-function Save({ closeModal }) {
-  const name = useSelector(state => state.modal.name || '');
+function Save({ closeModal, name }) {
   const dispatch = useDispatch();
 
   return (
@@ -104,21 +98,20 @@ export default function ProfleMenu() {
   const [acnchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const user = useSelector(state => state.user);
-  const dispatch = useDispatch();
+  const [name, setName] = useState(user.name);
 
   function handleMenuClose(e) {
     setAnchorEl(null);
   }
 
   function closeModal() {
-    dispatch(modalSlice.actions.clear());
     setOpenModal(false);
   }
 
   function getInitials() {
     if (!user.name) return null;
-    const name = user.name.split(' ');
-    return `${name[0].charAt(0)} ${name[1].charAt(0)}`;
+    const nameSplit = user.name.split(' ');
+    return `${nameSplit[0].charAt(0)} ${nameSplit[1].charAt(0)}`;
   }
 
   return (
@@ -128,7 +121,7 @@ export default function ProfleMenu() {
           alt='Remy Sharp'
           src={''}
           css={theme => ({
-            background: theme.colors.accent,
+            background: user.name ? theme.colors.accent : 'undefined',
             letterSpacing: '-1.8px'
           })}
         >
@@ -159,9 +152,9 @@ export default function ProfleMenu() {
         onClose={closeModal}
         title='User Settings'
       >
-        <Name />
+        <Name name={name} setName={setName} />
         <ProfilePic />
-        <Save closeModal={closeModal} />
+        <Save closeModal={closeModal} name={name} />
         <Cancel closeModal={closeModal} />
       </Modal>
       <Snackbar open={user.working}>Saving...</Snackbar>
