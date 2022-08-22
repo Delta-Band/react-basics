@@ -9,6 +9,7 @@ import {
   TextField,
   Button
 } from '@mui/material';
+import Snackbar from './Snackbar';
 import { Modal } from '../shared-components';
 import styled from '@emotion/styled';
 import { UserSolidCircle as UserIcon } from '@styled-icons/zondicons/UserSolidCircle';
@@ -102,6 +103,7 @@ function Cancel({ closeModal }) {
 export default function ProfleMenu() {
   const [acnchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   function handleMenuClose(e) {
@@ -113,10 +115,25 @@ export default function ProfleMenu() {
     setOpenModal(false);
   }
 
+  function getInitials() {
+    if (!user.name) return null;
+    const name = user.name.split(' ');
+    return `${name[0].charAt(0)} ${name[1].charAt(0)}`;
+  }
+
   return (
     <>
       <IconButton onClick={e => setAnchorEl(e.currentTarget)}>
-        <Avatar alt='Remy Sharp' src={''} />
+        <Avatar
+          alt='Remy Sharp'
+          src={''}
+          css={theme => ({
+            background: theme.colors.accent,
+            letterSpacing: '-1.8px'
+          })}
+        >
+          {getInitials()}
+        </Avatar>
       </IconButton>
       <Menu
         open={Boolean(acnchorEl)}
@@ -147,6 +164,7 @@ export default function ProfleMenu() {
         <Save closeModal={closeModal} />
         <Cancel closeModal={closeModal} />
       </Modal>
+      <Snackbar open={user.working}>Saving...</Snackbar>
     </>
   );
 }

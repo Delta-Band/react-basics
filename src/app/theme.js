@@ -31,6 +31,9 @@ const getTheme = mode => {
       bg: '#474851',
       fg: '#C7C7C7'
     };
+    themObj.palette = {
+      mode: 'dark'
+    };
   } else {
     themObj.colors = {
       fg: '#474851',
