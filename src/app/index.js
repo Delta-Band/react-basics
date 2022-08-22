@@ -23,8 +23,8 @@ function App() {
           position: 'fixed',
           left: 0,
           top: 0,
-          background: theme.pallet.bg,
-          color: theme.pallet.fg
+          background: theme.colors.bg,
+          color: theme.colors.fg
         })}
       >
         <AppBar />

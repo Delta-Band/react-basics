@@ -9,7 +9,10 @@ export default function AppBar() {
   return (
     <ThemeProvider theme={getTheme('light')}>
       <MuiAppBar
-        css={theme => ({ background: theme.pallet.bg, color: theme.pallet.fg })}
+        css={theme => ({
+          background: theme.colors.bg,
+          color: theme.colors.fg
+        })}
       >
         <Toolbar
           css={{

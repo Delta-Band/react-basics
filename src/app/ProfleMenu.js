@@ -1,25 +1,116 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
-import { ThemeProvider } from '@emotion/react';
-import getTheme from './theme';
 import {
   Avatar,
   IconButton,
   Menu,
   MenuItem,
-  Modal,
   Typography,
-  Fade,
-  TextField
+  TextField,
+  Button
 } from '@mui/material';
+import { Modal } from '../shared-components';
+import styled from '@emotion/styled';
+import { UserSolidCircle as UserIcon } from '@styled-icons/zondicons/UserSolidCircle';
+import { useSelector, useDispatch } from 'react-redux';
+import { modalSlice, userSlice } from './slices';
+
+const FieldTitle = styled.div`
+  margin-bottom: 8px;
+`;
+
+function Name() {
+  const name = useSelector(state => state.modal.name || '');
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <FieldTitle>
+        <Typography>Name</Typography>
+      </FieldTitle>
+      <TextField
+        fullWidth
+        value={name}
+        onChange={e =>
+          dispatch(modalSlice.actions.setData({ name: e.target.value }))
+        }
+      />
+    </div>
+  );
+}
+
+function ProfilePic() {
+  return (
+    <div>
+      <FieldTitle>
+        <Typography>Profile Pic</Typography>
+      </FieldTitle>
+      <Button
+        variant='contained'
+        css={theme => ({
+          width: '100%',
+          height: 290,
+          background: theme.colors.grey,
+          borderRadius: 4,
+          color: theme.colors.bg,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none'
+          }
+        })}
+      >
+        <UserIcon size={200} />
+      </Button>
+    </div>
+  );
+}
+
+function Save({ closeModal }) {
+  const name = useSelector(state => state.modal.name || '');
+  const dispatch = useDispatch();
+
+  return (
+    <Button
+      variant='contained'
+      fullWidth
+      onClick={() => {
+        closeModal();
+        dispatch(userSlice.actions.setData({ name }));
+      }}
+    >
+      Save
+    </Button>
+  );
+}
+
+function Cancel({ closeModal }) {
+  return (
+    <Button
+      variant='contained'
+      color='secondary'
+      fullWidth
+      onClick={closeModal}
+    >
+      Cancel
+    </Button>
+  );
+}
 
 export default function ProfleMenu() {
   const [acnchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
-  const openMenu = acnchorEl;
+  const dispatch = useDispatch();
 
   function handleMenuClose(e) {
     setAnchorEl(null);
+  }
+
+  function closeModal() {
+    dispatch(modalSlice.actions.clear());
+    setOpenModal(false);
   }
 
   return (
@@ -28,7 +119,7 @@ export default function ProfleMenu() {
         <Avatar alt='Remy Sharp' src={''} />
       </IconButton>
       <Menu
-        open={openMenu}
+        open={Boolean(acnchorEl)}
         anchorEl={acnchorEl}
         id='account-menu'
         onClose={handleMenuClose}
@@ -45,54 +136,17 @@ export default function ProfleMenu() {
         </MenuItem>
         <MenuItem>LOG OUT</MenuItem>
       </Menu>
-      <ThemeProvider theme={getTheme('light')}>
-        <Modal
-          open={openModal}
-          onClose={() => setOpenModal(false)}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-        >
-          <Fade in={openModal}>
-            <div
-              css={theme => ({
-                background: theme.pallet.bg,
-                color: theme.pallet.fg,
-                width: 360,
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                borderRadius: 8,
-                overflow: 'hidden'
-              })}
-            >
-              <div
-                css={theme => ({
-                  background: theme.pallet.accent,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingInline: 24,
-                  paddingBlock: 8,
-                  color: theme.pallet.bg
-                })}
-              >
-                <Typography variant='h6'>User Settings</Typography>
-              </div>
-              <div
-                css={theme => ({
-                  paddingInline: 24,
-                  paddingBlock: 16
-                })}
-              >
-                <Typography>Name</Typography>
-                <TextField fullWidth />
-                <Typography>Profile Pic</Typography>
-              </div>
-            </div>
-          </Fade>
-        </Modal>
-      </ThemeProvider>
+      <Modal
+        width={360}
+        open={openModal}
+        onClose={closeModal}
+        title='User Settings'
+      >
+        <Name />
+        <ProfilePic />
+        <Save closeModal={closeModal} />
+        <Cancel closeModal={closeModal} />
+      </Modal>
     </>
   );
 }
