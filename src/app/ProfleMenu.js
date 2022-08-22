@@ -9,8 +9,7 @@ import {
   TextField,
   Button
 } from '@mui/material';
-import Snackbar from './Snackbar';
-import { Modal } from '../shared-components';
+import { Modal, Snackbar } from '../shared-components';
 import styled from '@emotion/styled';
 import { UserSolidCircle as UserIcon } from '@styled-icons/zondicons/UserSolidCircle';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,6 +26,7 @@ function Name({ name, setName }) {
         <Typography>Name</Typography>
       </FieldTitle>
       <TextField
+        autoFocus
         fullWidth
         value={name}
         onChange={e => setName(e.target.value)}
@@ -110,7 +110,7 @@ export default function ProfleMenu() {
 
   function getInitials() {
     if (!user.name) return null;
-    const nameSplit = user.name.split(' ');
+    const nameSplit = user.name.toUpperCase().split(' ');
     return `${nameSplit[0].charAt(0)} ${nameSplit[1].charAt(0)}`;
   }
 
