@@ -2,7 +2,7 @@ const user = {
   get: () => {
     return new Promise((res, rej) => {
       setTimeout(() => {
-        const data = window.localStorage.getItem('user') || {};
+        const data = window.localStorage.getItem('user');
         res(data);
       }, 1500);
     });

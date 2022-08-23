@@ -24,7 +24,8 @@ const getTheme = mode => {
           }
         }
       }
-    }
+    },
+    appbarHeight: 64
   };
   if (mode === 'dark') {
     themObj.colors = {

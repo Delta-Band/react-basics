@@ -11,7 +11,8 @@ export default function AppBar() {
       <MuiAppBar
         css={theme => ({
           background: theme.colors.bg,
-          color: theme.colors.fg
+          color: theme.colors.fg,
+          height: theme.appbarHeight
         })}
       >
         <Toolbar
