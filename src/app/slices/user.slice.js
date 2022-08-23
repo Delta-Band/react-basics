@@ -13,9 +13,8 @@ const setData = createAsyncThunk('user/setData', async payload => {
   return payload;
 });
 
-const getData = createAsyncThunk('user/getData', async payload => {
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  return window.localStorage.getItem('user');
+const auth = createAsyncThunk('user/auth', async payload => {
+  return window.localStorage.getItem('auth');
 });
 
 export const userSlice = createSlice({
@@ -30,11 +29,12 @@ export const userSlice = createSlice({
       .addCase(setData.fulfilled, (state, action) => {
         state = Object.assign(state, action.payload, { working: false });
       })
-      .addCase(getData.pending, state => {
+      .addCase(auth.pending, state => {
         state.working = true;
       })
-      .addCase(getData.fulfilled, (state, action) => {
+      .addCase(auth.fulfilled, (state, action) => {
         state.authentication = action.payload;
+        state.false = true;
       });
   }
 });
