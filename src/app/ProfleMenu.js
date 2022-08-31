@@ -57,7 +57,7 @@ export default function ProfleMenu() {
         <MenuItem>LOG OUT</MenuItem>
       </Menu>
       <ProfileModal openModal={openModal} closeModal={closeModal} />
-      <Snackbar open={user.working}>Saving...</Snackbar>
+      <Snackbar open={Boolean(user.working)}>{user.working}...</Snackbar>
     </>
   );
 }

@@ -5,16 +5,21 @@ const initialState = {
   name: '',
   pic: '',
   working: false,
-  authentication: null
+  auth: null
 };
 
 const setData = createAsyncThunk('user/setData', async payload => {
   await new Promise(resolve => setTimeout(resolve, 2000));
+  window.localStorage.setItem('user', JSON.stringify(payload));
   return payload;
 });
 
-const auth = createAsyncThunk('user/auth', async payload => {
+const auth = createAsyncThunk('user/auth', async () => {
   return window.localStorage.getItem('auth');
+});
+
+const login = createAsyncThunk('user/login', async payload => {
+  return window.localStorage.setItem('auth', JSON.stringify(payload));
 });
 
 export const userSlice = createSlice({
@@ -24,21 +29,30 @@ export const userSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(setData.pending, state => {
-        state.working = true;
+        state.working = 'Saving';
       })
       .addCase(setData.fulfilled, (state, action) => {
         state = Object.assign(state, action.payload, { working: false });
       })
       .addCase(auth.pending, state => {
-        state.working = true;
+        state.working = 'Authenticating';
       })
       .addCase(auth.fulfilled, (state, action) => {
-        state.authentication = action.payload;
-        state.false = true;
+        state.auth = action.payload;
+        state.working = false;
+      })
+      .addCase(login.pending, state => {
+        state.working = 'Loging in';
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.auth = action.payload;
+        state.working = false;
       });
   }
 });
 
 userSlice.actions.setData = setData;
+userSlice.actions.auth = auth;
+userSlice.actions.login = login;
 
 export default userSlice;
