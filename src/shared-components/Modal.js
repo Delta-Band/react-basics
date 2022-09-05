@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Fragment } from 'react';
 import { ThemeProvider } from '@emotion/react';
-import getTheme from '../app/theme';
+import getTheme from '../theme';
 import { Modal as MuiModal, Typography, Fade } from '@mui/material';
 
 export default function Modal({

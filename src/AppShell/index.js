@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-import { store } from './store';
+import { store } from '../store';
 import { Provider } from 'react-redux';
 import AppBar from './AppBar';
 import { ThemeProvider } from '@emotion/react';
-import getTheme from './theme';
+import getTheme from '../theme';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Login } from '../pages';
 import Auth from './Auth';
 
-function App() {
+function AppShell() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={getTheme('dark')}>
@@ -39,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppShell;

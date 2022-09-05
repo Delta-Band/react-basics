@@ -4,7 +4,7 @@ import { Modal } from '../shared-components';
 import { UserSolidCircle as UserIcon } from '@styled-icons/zondicons/UserSolidCircle';
 import { Typography, TextField, Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { userSlice } from './slices';
+import { userSlice } from '../slices';
 import { FieldTitle } from '../shared-components';
 
 function ProfilePic() {

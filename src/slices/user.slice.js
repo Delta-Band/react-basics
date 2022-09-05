@@ -5,7 +5,7 @@ const initialState = {
   name: '',
   pic: '',
   working: false,
-  auth: null
+  auth: JSON.parse(window.localStorage.getItem('auth')) || null
 };
 
 const setData = createAsyncThunk('user/setData', async payload => {
@@ -15,17 +15,30 @@ const setData = createAsyncThunk('user/setData', async payload => {
 });
 
 const auth = createAsyncThunk('user/auth', async () => {
-  return window.localStorage.getItem('auth');
+  return JSON.parse(window.localStorage.getItem('auth'));
 });
 
 const login = createAsyncThunk('user/login', async payload => {
-  return window.localStorage.setItem('auth', JSON.stringify(payload));
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  window.localStorage.setItem(
+    'auth',
+    JSON.stringify({
+      email: payload.email,
+      pass: payload.pass
+    })
+  );
+  return payload;
 });
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    logout(state, action) {
+      window.localStorage.removeItem('auth');
+      state.auth = null;
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(setData.pending, state => {
@@ -51,8 +64,10 @@ export const userSlice = createSlice({
   }
 });
 
-userSlice.actions.setData = setData;
-userSlice.actions.auth = auth;
-userSlice.actions.login = login;
+Object.assign(userSlice.actions, {
+  setData,
+  auth,
+  login
+});
 
 export default userSlice;

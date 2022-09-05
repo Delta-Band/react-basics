@@ -13,6 +13,13 @@ const getTheme = mode => {
           }
         }
       },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          input: {
+            padding: '12.5px 14px'
+          }
+        }
+      },
       MuiButton: {
         styleOverrides: {
           root: {

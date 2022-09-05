@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { userSlice } from './slices';
+import { Snackbar } from '../shared-components';
+import { userSlice } from '../slices';
 
 export default function Auth() {
   const dispatch = useDispatch();
@@ -27,5 +28,5 @@ export default function Auth() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.auth]);
-  return null;
+  return <Snackbar open={Boolean(user.working)}>{user.working}...</Snackbar>;
 }

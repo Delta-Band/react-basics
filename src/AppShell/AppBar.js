@@ -2,13 +2,13 @@
 import { AppBar as MuiAppBar, Toolbar, IconButton } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { useLocation } from 'react-router-dom';
-import getTheme from './theme';
+import getTheme from '../theme';
 import logo from './react.svg';
 import ProfleMenu from './ProfleMenu';
 
 export default function AppBar() {
   const location = useLocation();
-  console.log(location);
+
   return (
     <ThemeProvider theme={getTheme('light')}>
       <MuiAppBar

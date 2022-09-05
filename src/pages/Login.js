@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
-import { Typography, TextField, Button, Paper } from '@mui/material';
+import { Typography, TextField, Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { Modal, FieldTitle } from '../shared-components';
-import logo from '../app/react.svg';
+import { userSlice } from '../slices';
+import logo from '../AppShell/react.svg';
 
 function removeWhiteSapce(str) {
   return str.replace(/ /g, '');
@@ -41,6 +43,20 @@ function Password({ pass, setPass }) {
   );
 }
 
+function LoginBtn({ email, pass }) {
+  const dispatch = useDispatch();
+
+  function loginHandler() {
+    dispatch(userSlice.actions.login({ email, pass }));
+  }
+
+  return (
+    <Button variant='contained' size='large' onClick={loginHandler}>
+      Let's go!
+    </Button>
+  );
+}
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -67,6 +83,7 @@ export default function Login() {
       <Modal width={360} open title='Login'>
         <Email email={email} setEmail={setEmail} />
         <Password pass={pass} setPass={setPass} />
+        <LoginBtn email={email} pass={pass} />
       </Modal>
     </div>
   );

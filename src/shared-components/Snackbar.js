@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ThemeProvider } from '@emotion/react';
-import getTheme from '../app/theme';
+import getTheme from '../theme';
 import { Snackbar as MuiSnackbar, Slide, Alert } from '@mui/material';
 
 function TransitionRight(props) {
