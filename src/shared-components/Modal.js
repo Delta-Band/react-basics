@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Fragment } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import getTheme from '../app/theme';
 import { Modal as MuiModal, Typography, Fade } from '@mui/material';
@@ -48,20 +49,14 @@ export default function Modal({
             <div
               css={theme => ({
                 paddingInline: 24,
-                paddingBlock: 16
+                paddingBlock: 24,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 20
               })}
             >
               {children.map((child, i) => (
-                <div
-                  key={`modal-child-${i}`}
-                  css={{
-                    '&:not(last-child)': {
-                      marginBlockEnd: 12
-                    }
-                  }}
-                >
-                  {child}
-                </div>
+                <Fragment key={`modal-child-${i}`}>{child}</Fragment>
               ))}
             </div>
           </div>

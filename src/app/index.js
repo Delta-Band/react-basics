@@ -13,7 +13,6 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={getTheme('dark')}>
-        <AppBar />
         <div
           css={theme => ({
             width: '100%',
@@ -27,6 +26,7 @@ function App() {
           })}
         >
           <BrowserRouter>
+            <AppBar />
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />

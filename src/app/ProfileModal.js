@@ -1,15 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
 import { Modal } from '../shared-components';
-import styled from '@emotion/styled';
 import { UserSolidCircle as UserIcon } from '@styled-icons/zondicons/UserSolidCircle';
 import { Typography, TextField, Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { userSlice } from './slices';
-
-const FieldTitle = styled.div`
-  margin-bottom: 8px;
-`;
+import { FieldTitle } from '../shared-components';
 
 function ProfilePic() {
   return (
